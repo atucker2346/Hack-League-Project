@@ -69,7 +69,14 @@ const EarningsSummary = () => {
   const loadEarnings = async () => {
     try {
       const data = await earningsService.getTotalEarnings();
-      setEarnings(data);
+      // Ensure all required properties exist with defaults
+      setEarnings({
+        totalEarnings: data?.totalEarnings ?? 0,
+        pendingClaims: data?.pendingClaims ?? 0,
+        completedClaims: data?.completedClaims ?? 0,
+        potentialEarnings: data?.potentialEarnings ?? 0,
+        recentEarnings: Array.isArray(data?.recentEarnings) ? data.recentEarnings : []
+      });
     } catch (error) {
       console.error('Failed to load earnings:', error);
       // Set default values if service fails
@@ -77,7 +84,8 @@ const EarningsSummary = () => {
         totalEarnings: 0,
         pendingClaims: 0,
         completedClaims: 0,
-        potentialEarnings: 0
+        potentialEarnings: 0,
+        recentEarnings: []
       });
     } finally {
       setLoading(false);
@@ -105,10 +113,10 @@ const EarningsSummary = () => {
       
       <div className="earnings-grid" ref={cardsRef}>
         {[
-          { type: 'primary', icon: '💵', label: 'Total Earned', amount: `$${earnings.totalEarnings.toFixed(2)}`, note: 'From completed claims' },
-          { type: 'secondary', icon: '⏳', label: 'Pending Claims', amount: earnings.pendingClaims, note: 'In progress' },
-          { type: 'success', icon: '✅', label: 'Completed', amount: earnings.completedClaims, note: 'Successfully submitted' },
-          { type: 'potential', icon: '📈', label: 'Potential', amount: `$${earnings.potentialEarnings.toFixed(2)}`, note: 'Estimated from pending' }
+          { type: 'primary', icon: '💵', label: 'Total Earned', amount: `$${(earnings.totalEarnings || 0).toFixed(2)}`, note: 'From completed claims' },
+          { type: 'secondary', icon: '⏳', label: 'Pending Claims', amount: earnings.pendingClaims || 0, note: 'In progress' },
+          { type: 'success', icon: '✅', label: 'Completed', amount: earnings.completedClaims || 0, note: 'Successfully submitted' },
+          { type: 'potential', icon: '📈', label: 'Potential', amount: `$${(earnings.potentialEarnings || 0).toFixed(2)}`, note: 'Estimated from pending' }
         ].map((card, index) => (
           <EarningsCard
             key={index}
@@ -133,7 +141,7 @@ const EarningsSummary = () => {
                     {new Date(earning.date).toLocaleDateString()}
                   </div>
                 </div>
-                <div className="recent-earnings-amount">+${earning.amount.toFixed(2)}</div>
+                <div className="recent-earnings-amount">+${(earning.amount || 0).toFixed(2)}</div>
               </div>
             ))}
           </div>
