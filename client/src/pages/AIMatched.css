@@ -142,10 +142,22 @@
 .score-value {
   font-size: 24px;
   font-weight: 700;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  transition: all 0.3s;
+}
+
+.score-value.score-high {
+  color: #2ecc71; /* Green for high scores (60+) */
+  text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+}
+
+.score-value.score-medium {
+  color: #ff8c42; /* Orange for medium scores (40-59) */
+  text-shadow: 0 0 10px rgba(255, 140, 66, 0.3);
+}
+
+.score-value.score-low {
+  color: #e74c3c; /* Red for low scores (<40) */
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
 }
 
 .match-reasons {

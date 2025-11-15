@@ -4,6 +4,13 @@ import SettlementCard from '../components/SettlementCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import './AIMatched.css';
 
+// Helper function to determine score color
+const getScoreColor = (score) => {
+  if (score >= 60) return 'high'; // Green
+  if (score >= 40) return 'medium'; // Orange
+  return 'low'; // Red
+};
+
 const AIMatched = () => {
   const navigate = useNavigate();
   const [matches, setMatches] = useState([]);
@@ -94,7 +101,9 @@ const AIMatched = () => {
                 <div className="match-info">
                   <div className="match-score">
                     <span className="score-label">Match Score:</span>
-                    <span className="score-value">{settlement.matchScore}%</span>
+                    <span className={`score-value score-${getScoreColor(settlement.matchScore)}`}>
+                      {settlement.matchScore}%
+                    </span>
                   </div>
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
@@ -124,7 +133,9 @@ const AIMatched = () => {
                 <div className="match-info">
                   <div className="match-score">
                     <span className="score-label">Match Score:</span>
-                    <span className="score-value">{settlement.matchScore}%</span>
+                    <span className={`score-value score-${getScoreColor(settlement.matchScore)}`}>
+                      {settlement.matchScore}%
+                    </span>
                   </div>
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
@@ -154,7 +165,9 @@ const AIMatched = () => {
                 <div className="match-info">
                   <div className="match-score">
                     <span className="score-label">Match Score:</span>
-                    <span className="score-value">{settlement.matchScore}%</span>
+                    <span className={`score-value score-${getScoreColor(settlement.matchScore)}`}>
+                      {settlement.matchScore}%
+                    </span>
                   </div>
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
