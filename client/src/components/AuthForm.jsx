@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import './AuthForm.css';
 
-const AuthForm = ({ onSubmit, isLogin, error }) => {
+const AuthForm = ({ onSubmit, isLogin, error, demoCredentials }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,6 +25,17 @@ const AuthForm = ({ onSubmit, isLogin, error }) => {
       );
     }
   }, []);
+
+  // Auto-fill form when demo credentials are provided
+  useEffect(() => {
+    if (demoCredentials) {
+      setFormData(prev => ({
+        ...prev,
+        email: demoCredentials.email || '',
+        password: demoCredentials.password || ''
+      }));
+    }
+  }, [demoCredentials]);
 
   const handleChange = (e) => {
     setFormData({

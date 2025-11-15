@@ -8,8 +8,17 @@ import './AuthPage.css';
 const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [demoCredentials, setDemoCredentials] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleUseDemo = () => {
+    setDemoCredentials({
+      email: 'demo@example.com',
+      password: 'password'
+    });
+    setError('');
+  };
 
   const handleSubmit = async (formData) => {
     setError('');
@@ -36,7 +45,19 @@ const Login = () => {
         <div className="auth-container">
           <h1>Welcome Back</h1>
           <p className="auth-subtitle">Sign in to your account</p>
-          <AuthForm onSubmit={handleSubmit} isLogin={true} error={error} />
+          <AuthForm 
+            onSubmit={handleSubmit} 
+            isLogin={true} 
+            error={error} 
+            demoCredentials={demoCredentials}
+          />
+          <button 
+            type="button" 
+            onClick={handleUseDemo} 
+            className="demo-button"
+          >
+            🔑 Use Demo Credentials
+          </button>
           <p className="auth-link">
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
