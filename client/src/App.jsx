@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
-import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -35,81 +34,65 @@ function AppRoutes() {
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <Dashboard />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <Dashboard />
+          </Layout>
         }
       />
       <Route
         path="/questionnaire"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <Questionnaire />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <Questionnaire />
+          </Layout>
         }
       />
       <Route
         path="/ai-matched"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <AIMatched />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <AIMatched />
+          </Layout>
         }
       />
       <Route
         path="/settlements"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <Settlements />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <Settlements />
+          </Layout>
         }
       />
       <Route
         path="/subscription"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <Subscription />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <Subscription />
+          </Layout>
         }
       />
       <Route
         path="/claim/:settlementId"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <ClaimForm />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <ClaimForm />
+          </Layout>
         }
       />
       <Route
         path="/review/:settlementId"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <ReviewScreen />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <ReviewScreen />
+          </Layout>
         }
       />
       <Route
         path="/lawfirm/settlement/:settlementId"
         element={
-          <ProtectedRoute>
-            <Layout>
-              <LawFirmDetail />
-            </Layout>
-          </ProtectedRoute>
+          <Layout>
+            <LawFirmDetail />
+          </Layout>
         }
       />
     </Routes>

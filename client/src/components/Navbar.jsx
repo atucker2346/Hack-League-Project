@@ -34,12 +34,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <nav className="navbar" ref={navbarRef}>
@@ -53,9 +49,15 @@ const Navbar = () => {
           <Link to="/settlements">All Settlements</Link>
           <Link to="/subscription">Subscription</Link>
           <span className="navbar-user">Hello, {user?.name}</span>
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
+          {isAuthenticated ? (
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="login-button">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

@@ -16,6 +16,14 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Default dummy user when not authenticated
+  const dummyUser = {
+    id: 0,
+    email: 'guest@example.com',
+    name: 'John',
+    subscriptionTier: 'free'
+  };
+
   useEffect(() => {
     // Check for stored auth data
     const storedToken = localStorage.getItem('token');
@@ -68,7 +76,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const value = {
-    user,
+    user: user || dummyUser, // Return dummy user if not authenticated
     token,
     login,
     register,
