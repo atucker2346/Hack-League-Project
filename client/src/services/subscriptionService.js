@@ -96,13 +96,19 @@ export const subscriptionService = {
   },
 
   getTiers: async () => {
+    // For showcase: always return mock tiers immediately, no API needed
+    // Try API first, but always fallback to mock data
     try {
-      const response = await axios.get(`${API_URL}/tiers`);
-      return response.data;
+      const response = await axios.get(`${API_URL}/tiers`, { timeout: 2000 });
+      // If API works, ensure it's an array
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        return response.data;
+      }
     } catch (error) {
-      // Return mock tiers for showcase
-      return MOCK_TIERS;
+      // API failed, use mock data
     }
+    // Always return mock tiers for showcase
+    return MOCK_TIERS;
   },
 
   subscribe: async (tier) => {
