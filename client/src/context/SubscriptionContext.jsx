@@ -19,21 +19,23 @@ export const SubscriptionProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      loadSubscriptionData();
-    } else {
-      setLoading(false);
-    }
+    // Always load subscription data (tiers) even if not authenticated
+    loadSubscriptionData();
   }, [isAuthenticated]);
 
   const loadSubscriptionData = async () => {
     try {
-      const [statusData, tiersData] = await Promise.all([
-        subscriptionService.getStatus(),
-        subscriptionService.getTiers()
-      ]);
-      setSubscription(statusData);
-      setTiers(tiersData);
+      // Always load tiers, only load status if authenticated
+      const promises = [subscriptionService.getTiers()];
+      if (isAuthenticated) {
+        promises.push(subscriptionService.getStatus());
+      }
+      
+      const results = await Promise.all(promises);
+      setTiers(results[0]);
+      if (isAuthenticated && results[1]) {
+        setSubscription(results[1]);
+      }
     } catch (error) {
       console.error('Failed to load subscription data:', error);
     } finally {

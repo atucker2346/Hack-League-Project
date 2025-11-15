@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { gsap } from 'gsap';
 import { earningsService } from '../services/earningsService';
 import LoadingSpinner from './LoadingSpinner';
 import './EarningsSummary.css';
