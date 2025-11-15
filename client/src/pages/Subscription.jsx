@@ -44,14 +44,16 @@ const Subscription = () => {
     return <LoadingSpinner />;
   }
 
+  const tiersArray = Array.isArray(tiers) ? tiers : [];
+
   return (
     <div className="subscription-page">
       <div className="subscription-header" ref={headerRef}>
         <h1>Subscription Plans</h1>
         <p>Choose the plan that works best for you</p>
-        {subscription && (
+        {subscription && subscription.tier && (
           <div className="current-status">
-            Current Plan: <strong>{subscription.tier.toUpperCase()}</strong>
+            Current Plan: <strong>{(subscription.tier || '').toUpperCase()}</strong>
           </div>
         )}
       </div>
@@ -62,17 +64,23 @@ const Subscription = () => {
         </div>
       )}
 
-      <div className="tiers-container" ref={tiersRef}>
-        {tiers.map((tier) => (
-          <SubscriptionTier
-            key={tier.id}
-            tier={tier}
-            currentTier={subscription?.tier}
-            onSelect={handleSelectTier}
-            loading={updating}
-          />
-        ))}
-      </div>
+      {tiersArray.length === 0 ? (
+        <div className="no-tiers">
+          <p>No subscription tiers available at this time.</p>
+        </div>
+      ) : (
+        <div className="tiers-container" ref={tiersRef}>
+          {tiersArray.map((tier) => (
+            <SubscriptionTier
+              key={tier.id}
+              tier={tier}
+              currentTier={subscription?.tier}
+              onSelect={handleSelectTier}
+              loading={updating}
+            />
+          ))}
+        </div>
+      )}
 
     </div>
   );

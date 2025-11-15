@@ -60,11 +60,11 @@ const SubscriptionTier = ({ tier, currentTier, onSelect, loading }) => {
       <div className="tier-features">
         <h4>Features:</h4>
         <ul>
-          {tier.features.map((feature, index) => (
+          {(Array.isArray(tier.features) ? tier.features : []).map((feature, index) => (
             <li key={index}>✓ {feature}</li>
           ))}
         </ul>
-        {tier.limitations.length > 0 && (
+        {Array.isArray(tier.limitations) && tier.limitations.length > 0 && (
           <>
             <h4>Limitations:</h4>
             <ul className="limitations">
