@@ -44,13 +44,22 @@ const getAuthHeaders = () => {
 
 export const earningsService = {
   getTotalEarnings: async () => {
+    // For showcase: always return mock earnings immediately, no API needed
+    // Try API first, but always fallback to mock data
     try {
-      const response = await axios.get(`${API_URL}/total`, getAuthHeaders());
-      return response.data;
+      const response = await axios.get(`${API_URL}/total`, {
+        headers: getAuthHeaders().headers,
+        timeout: 2000
+      });
+      // If API works and has valid data, use it
+      if (response.data && typeof response.data === 'object' && response.data.totalEarnings !== undefined) {
+        return response.data;
+      }
     } catch (error) {
-      // Return mock earnings data for showcase - no API needed
-      return MOCK_EARNINGS;
+      // API failed, use mock data
     }
+    // Always return mock earnings for showcase
+    return MOCK_EARNINGS;
   }
 };
 

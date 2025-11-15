@@ -4,6 +4,37 @@ import { earningsService } from '../services/earningsService';
 import LoadingSpinner from './LoadingSpinner';
 import './EarningsSummary.css';
 
+// Mock earnings data fallback
+const MOCK_EARNINGS = {
+  totalEarnings: 1250.50,
+  pendingClaims: 3,
+  completedClaims: 2,
+  potentialEarnings: 850.00,
+  recentEarnings: [
+    {
+      id: 1,
+      settlementName: 'TechCorp Data Breach Settlement',
+      amount: 250.00,
+      date: '2024-10-15',
+      status: 'completed'
+    },
+    {
+      id: 2,
+      settlementName: 'RetailGiant Price Fixing',
+      amount: 1000.50,
+      date: '2024-09-20',
+      status: 'completed'
+    },
+    {
+      id: 3,
+      settlementName: 'AutoParts Warranty Settlement',
+      amount: 500.00,
+      date: '2024-11-01',
+      status: 'pending'
+    }
+  ]
+};
+
 const EarningsCard = ({ type, icon, label, amount, note }) => {
   const cardRef = useRef(null);
 
@@ -69,24 +100,20 @@ const EarningsSummary = () => {
   const loadEarnings = async () => {
     try {
       const data = await earningsService.getTotalEarnings();
-      // Ensure all required properties exist with defaults
+      // Ensure all required properties exist, use mock data values if missing
       setEarnings({
-        totalEarnings: data?.totalEarnings ?? 0,
-        pendingClaims: data?.pendingClaims ?? 0,
-        completedClaims: data?.completedClaims ?? 0,
-        potentialEarnings: data?.potentialEarnings ?? 0,
-        recentEarnings: Array.isArray(data?.recentEarnings) ? data.recentEarnings : []
+        totalEarnings: data?.totalEarnings ?? MOCK_EARNINGS.totalEarnings,
+        pendingClaims: data?.pendingClaims ?? MOCK_EARNINGS.pendingClaims,
+        completedClaims: data?.completedClaims ?? MOCK_EARNINGS.completedClaims,
+        potentialEarnings: data?.potentialEarnings ?? MOCK_EARNINGS.potentialEarnings,
+        recentEarnings: Array.isArray(data?.recentEarnings) && data.recentEarnings.length > 0 
+          ? data.recentEarnings 
+          : MOCK_EARNINGS.recentEarnings
       });
     } catch (error) {
       console.error('Failed to load earnings:', error);
-      // Set default values if service fails
-      setEarnings({
-        totalEarnings: 0,
-        pendingClaims: 0,
-        completedClaims: 0,
-        potentialEarnings: 0,
-        recentEarnings: []
-      });
+      // Use mock data if service fails
+      setEarnings(MOCK_EARNINGS);
     } finally {
       setLoading(false);
     }

@@ -65,14 +65,22 @@ const getAuthHeaders = () => {
 
 export const settlementService = {
   getAll: async () => {
+    // For showcase: always return mock settlements, no API needed
+    // Try API first, but always fallback to mock data
     try {
-      const response = await axios.get(`${API_URL}`, getAuthHeaders());
-      // Ensure response.data is an array
-      return Array.isArray(response.data) ? response.data : MOCK_SETTLEMENTS;
+      const response = await axios.get(`${API_URL}`, {
+        headers: getAuthHeaders().headers,
+        timeout: 2000
+      });
+      // If API works and returns valid array, use it
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        return response.data;
+      }
     } catch (error) {
-      // Return mock data for showcase - no API needed
-      return MOCK_SETTLEMENTS;
+      // API failed, use mock data
     }
+    // Always return mock settlements for showcase
+    return MOCK_SETTLEMENTS;
   },
 
   getById: async (id) => {
