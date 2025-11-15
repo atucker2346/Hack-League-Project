@@ -27,9 +27,12 @@ const Dashboard = () => {
   const loadSettlements = async () => {
     try {
       const data = await settlementService.getAll();
-      setSettlements(data.slice(0, 3)); // Show first 3 on dashboard
+      // Ensure data is an array before slicing
+      const settlementsArray = Array.isArray(data) ? data : [];
+      setSettlements(settlementsArray.slice(0, 3)); // Show first 3 on dashboard
     } catch (error) {
       console.error('Failed to load settlements:', error);
+      setSettlements([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
@@ -66,7 +69,7 @@ const Dashboard = () => {
       <div className="dashboard-section">
         <h2>Recent Settlements</h2>
         <div className="settlements-grid" ref={cardsRef}>
-          {settlements.map((settlement) => (
+          {(Array.isArray(settlements) ? settlements : []).map((settlement) => (
             <div key={settlement.id} className="settlement-card-preview">
               <div className="preview-card-header">
                 <img 

@@ -23,9 +23,15 @@ const AIMatched = () => {
   const loadMatches = () => {
     const stored = sessionStorage.getItem('aiMatchResults');
     if (stored) {
-      const data = JSON.parse(stored);
-      setMatches(data.matches || []);
-      setMatchInfo(data);
+      try {
+        const data = JSON.parse(stored);
+        // Ensure matches is always an array
+        setMatches(Array.isArray(data.matches) ? data.matches : []);
+        setMatchInfo(data);
+      } catch (error) {
+        console.error('Failed to parse match results:', error);
+        setMatches([]);
+      }
     } else {
       // No matches found, redirect to questionnaire
       navigate('/questionnaire');
@@ -42,7 +48,7 @@ const AIMatched = () => {
     return <LoadingSpinner />;
   }
 
-  if (matches.length === 0) {
+  if (!Array.isArray(matches) || matches.length === 0) {
     return (
       <div className="ai-matched-page">
         <div className="no-matches">
@@ -82,7 +88,7 @@ const AIMatched = () => {
             <p className="section-description">These settlements have a strong match with your profile</p>
           </div>
           <div className="settlements-grid">
-            {highConfidenceMatches.map((settlement) => (
+            {(Array.isArray(highConfidenceMatches) ? highConfidenceMatches : []).map((settlement) => (
               <div key={settlement.id} className="match-card-wrapper">
                 <SettlementCard settlement={settlement} />
                 <div className="match-info">
@@ -93,7 +99,7 @@ const AIMatched = () => {
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
                     <ul>
-                      {settlement.matchReasons.map((reason, index) => (
+                      {(Array.isArray(settlement.matchReasons) ? settlement.matchReasons : []).map((reason, index) => (
                         <li key={index}>{reason}</li>
                       ))}
                     </ul>
@@ -112,7 +118,7 @@ const AIMatched = () => {
             <p className="section-description">These settlements may be relevant to your situation</p>
           </div>
           <div className="settlements-grid">
-            {mediumConfidenceMatches.map((settlement) => (
+            {(Array.isArray(mediumConfidenceMatches) ? mediumConfidenceMatches : []).map((settlement) => (
               <div key={settlement.id} className="match-card-wrapper">
                 <SettlementCard settlement={settlement} />
                 <div className="match-info">
@@ -123,7 +129,7 @@ const AIMatched = () => {
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
                     <ul>
-                      {settlement.matchReasons.map((reason, index) => (
+                      {(Array.isArray(settlement.matchReasons) ? settlement.matchReasons : []).map((reason, index) => (
                         <li key={index}>{reason}</li>
                       ))}
                     </ul>
@@ -142,7 +148,7 @@ const AIMatched = () => {
             <p className="section-description">These settlements might be worth reviewing</p>
           </div>
           <div className="settlements-grid">
-            {lowConfidenceMatches.map((settlement) => (
+            {(Array.isArray(lowConfidenceMatches) ? lowConfidenceMatches : []).map((settlement) => (
               <div key={settlement.id} className="match-card-wrapper">
                 <SettlementCard settlement={settlement} />
                 <div className="match-info">
@@ -153,7 +159,7 @@ const AIMatched = () => {
                   <div className="match-reasons">
                     <strong>Why this matches:</strong>
                     <ul>
-                      {settlement.matchReasons.map((reason, index) => (
+                      {(Array.isArray(settlement.matchReasons) ? settlement.matchReasons : []).map((reason, index) => (
                         <li key={index}>{reason}</li>
                       ))}
                     </ul>

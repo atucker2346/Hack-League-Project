@@ -67,7 +67,8 @@ export const settlementService = {
   getAll: async () => {
     try {
       const response = await axios.get(`${API_URL}`, getAuthHeaders());
-      return response.data;
+      // Ensure response.data is an array
+      return Array.isArray(response.data) ? response.data : MOCK_SETTLEMENTS;
     } catch (error) {
       // Return mock data for showcase - no API needed
       return MOCK_SETTLEMENTS;

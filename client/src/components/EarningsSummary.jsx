@@ -125,7 +125,7 @@ const EarningsSummary = () => {
         <div className="recent-earnings">
           <h3>Recent Earnings</h3>
           <div className="recent-earnings-list">
-            {earnings.recentEarnings.map((earning, index) => (
+            {(Array.isArray(earnings.recentEarnings) ? earnings.recentEarnings : []).map((earning, index) => (
               <div key={index} className="recent-earnings-item">
                 <div className="recent-earnings-info">
                   <div className="recent-earnings-name">{earning.settlementName}</div>

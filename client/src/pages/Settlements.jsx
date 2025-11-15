@@ -22,9 +22,11 @@ const Settlements = () => {
   const loadSettlements = async () => {
     try {
       const data = await settlementService.getAll();
-      setSettlements(data);
+      // Ensure data is an array
+      setSettlements(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Failed to load settlements:', error);
+      setSettlements([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
@@ -50,12 +52,12 @@ const Settlements = () => {
       </div>
 
       <div className="settlements-grid" ref={gridRef}>
-        {settlements.map((settlement) => (
+        {(Array.isArray(settlements) ? settlements : []).map((settlement) => (
           <SettlementCard key={settlement.id} settlement={settlement} />
         ))}
       </div>
 
-      {settlements.length === 0 && (
+      {(!Array.isArray(settlements) || settlements.length === 0) && (
         <div className="no-settlements">
           <p>No settlements available at this time.</p>
         </div>
