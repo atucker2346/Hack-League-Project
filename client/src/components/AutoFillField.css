@@ -1,0 +1,107 @@
+.autofill-field {
+  margin-bottom: 24px;
+}
+
+.autofill-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.required {
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+.suggestion-banner {
+  background: #e3f2fd;
+  border: 1px solid #2196f3;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.suggestion-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.suggestion-icon {
+  font-size: 20px;
+}
+
+.suggestion-text {
+  font-size: 14px;
+  color: #1976d2;
+}
+
+.suggestion-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.accept-button,
+.reject-button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.accept-button {
+  background-color: #27ae60;
+  color: white;
+}
+
+.accept-button:hover {
+  background-color: #229954;
+}
+
+.reject-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.reject-button:hover {
+  background-color: #c0392b;
+}
+
+.autofill-field input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.autofill-field input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.autofill-field input.confirmed {
+  border-color: #27ae60;
+  background-color: #f0fff4;
+}
+
+.confirmation-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background-color: #27ae60;
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+

@@ -1,0 +1,200 @@
+.earnings-summary {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.7) 0%, rgba(20, 20, 20, 0.7) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-bottom: 32px;
+}
+
+.earnings-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.earnings-header h2 {
+  font-size: 28px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.earnings-subtitle {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.earnings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.earnings-card {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.6) 0%, rgba(30, 30, 30, 0.6) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.earnings-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.earnings-card:hover::before {
+  opacity: 1;
+}
+
+.earnings-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.earnings-card.primary {
+  border-color: var(--primary-color);
+  background: rgba(255, 107, 53, 0.1);
+}
+
+.earnings-card.primary::before {
+  background: linear-gradient(90deg, transparent, #ff6b35, transparent);
+}
+
+.earnings-card.secondary {
+  border-color: #f39c12;
+  background: rgba(243, 156, 18, 0.1);
+}
+
+.earnings-card.secondary::before {
+  background: linear-gradient(90deg, transparent, #f39c12, transparent);
+}
+
+.earnings-card.success {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.1);
+}
+
+.earnings-card.success::before {
+  background: linear-gradient(90deg, transparent, #27ae60, transparent);
+}
+
+.earnings-card.potential {
+  border-color: var(--primary-dark);
+  background: rgba(255, 140, 66, 0.1);
+}
+
+.earnings-card.potential::before {
+  background: linear-gradient(90deg, transparent, #ff8c42, transparent);
+}
+
+.earnings-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.earnings-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.earnings-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.earnings-amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.earnings-note {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.recent-earnings {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+}
+
+.recent-earnings h3 {
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.recent-earnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-earnings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.6) 0%, rgba(30, 30, 30, 0.6) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border-left: 4px solid #2ecc71;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.recent-earnings-item:hover {
+  background: linear-gradient(135deg, rgba(50, 50, 50, 0.7) 0%, rgba(40, 40, 40, 0.7) 100%);
+  transform: translateX(4px);
+  border-color: var(--primary-color);
+}
+
+.recent-earnings-info {
+  flex: 1;
+}
+
+.recent-earnings-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.recent-earnings-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.recent-earnings-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2ecc71;
+}
+

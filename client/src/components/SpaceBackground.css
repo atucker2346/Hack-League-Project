@@ -1,0 +1,91 @@
+.space-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle infinite;
+}
+
+.star-fast {
+  animation-duration: 1s !important;
+}
+
+.star-medium {
+  animation-duration: 2s !important;
+}
+
+.star-slow {
+  animation-duration: 4s !important;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Additional floating animation for some stars */
+.star:nth-child(3n) {
+  animation-name: twinkle, float;
+  animation-duration: 3s, 20s;
+  animation-iteration-count: infinite, infinite;
+  animation-timing-function: ease-in-out, linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -10px) scale(1.1);
+  }
+  50% {
+    transform: translate(-5px, -20px) scale(0.9);
+  }
+  75% {
+    transform: translate(-15px, -10px) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* Parallax effect for larger stars */
+.star:nth-child(5n) {
+  animation-name: twinkle, parallax;
+  animation-duration: 4s, 15s;
+  animation-iteration-count: infinite, infinite;
+  animation-timing-function: ease-in-out, linear;
+}
+
+@keyframes parallax {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  33% {
+    transform: translateX(20px) translateY(-15px);
+  }
+  66% {
+    transform: translateX(-15px) translateY(-30px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
